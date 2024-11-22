@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기부 가능한 의류 - 옷</title>
+    <style>
+        /* 공통 스타일 */
+        body { 
+            margin: 0;
+            font-family: Arial, sans-serif; 
+            background-color: #f8f9fa; 
+            color: #333; 
+        }
+        
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+            z-index: 1000;
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+        
+        /* 검색창 스타일 (이전 donation 페이지 스타일) */
+        .search-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2.5em;
+        }
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 0.8em;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: #2e8b57;
+        }
+
+        /* 콘텐츠 스타일 */
+        .content {
+            padding-top: 100px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 2em 1em;
+            text-align: center;
+        }
+        .content h1 {
+            font-size: 2.5em;
+            color: rgba(46, 139, 87, 0.8);
+            margin-top: 2em;
+        }
+        .content p{
+            padding-bottom: 1.5em;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5em;
+            margin-top: 1em;
+        }
+        .product-card {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s, transform 1.5s;
+        }
+        .product-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .product-card:hover {
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product-card h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin: 0.5em 0;
+        }
+        .product-card p {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 1em;
+        }
+        .product-card span {
+            font-weight: bold;
+            color: #2e8b57;
+        }
+
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 2em 0;
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+            margin-top: 2em;
+        }
+        /* 기부의 가치 섹션 스타일 */
+        .donation-value-section {
+            background-color: #f1f8f6;
+            padding: 3em 2em;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 2em auto;
+            color: #333;
+        }
+        .donation-value-section h2 {
+            font-size: 2.5em;
+            color: #2e8b57;
+            margin-bottom: 1em;
+            font-weight: bold;
+        }   
+        .donation-value-section p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 0.5em;
+        }
+        .learn-more-button {
+            display: inline-block;
+            padding: 0.8em 1.5em;
+            background-color: #2e8b57;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .learn-more-button:hover {
+            background-color: #267a4e;
+            box-shadow: 0px 4px 10px rgba(46, 139, 87, 0.3);
+        }
+
+        /* 상세 페이지 이동 애니메이션 */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류 수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">의류 배출 방법</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 콘텐츠 -->
+    <div class="content">
+        <h1>옷을 버리는 방법</h1>
+        <p>의류를 올바르게 배출하여 환경을 보호해보세요.</p>
+        
+        <!-- 검색창 -->
+        <div class="search-container">
+        <form action="cloth_info.html" method="get">
+            <input type="text" name="search" class="search-input" placeholder="기부 가능한 의류를 검색하세요" value="">
+        </form>
+        </div>
+
+        <!-- 제품 목록 -->
+        <div class="product-grid">
+            <div class="product-card" onclick="navigateToDetail()">
+                <img src="cloth.jpg" alt="스웨터">
+                <h3>스웨터 | 따뜻한 마음</h3>
+            </div>
+            <div class="product-card">
+                <img src="cloth.jpg" alt="후드티">
+                <h3>후드 | 마음을 담아</h3>
+            </div>
+            <div class="product-card">
+                <img src="cloth.jpg" alt="바지">
+                <h3>바지 | 따뜻한 겨울</h3>
+            </div>
+            <div class="product-card">
+                <img src="cloth.jpg" alt="셔츠">
+                <h3>셔츠 | 부드러운 터치</h3>
+            </div>
+            <div class="product-card" onclick="navigateToDetail()">
+                <img src="cloth.jpg" alt="바람막이">
+                <h3>바람막이 | 따뜻한 마음</h3>
+            </div>
+            <div class="product-card">
+                <img src="cloth.jpg" alt="티셔츠">
+                <h3>티셔츠 | 마음을 담아</h3>
+            </div>
+            <div class="product-card">
+                <img src="cloth.jpg" alt="치마">
+                <h3>치마 | 따뜻한 겨울</h3>
+            </div>
+            <div class="product-card">
+                <img src="cloth.jpg" alt="패딩">
+                <h3>패딩 | 부드러운 터치</h3>
+            </div>
+        </div>
+
+        <!-- 배너 -->
+        <div class="donation-value-section">
+            <h2>기부의 가치</h2>
+            <p>의류 기부를 통해 환경 보호와 함께 도움이 필요한 사람들에게<br>나눔의 가치를 전달할 수 있습니다.</p>
+            <a href="#donate" class="learn-more-button">기부 방법 알아보기</a>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+    <script>
+        function navigateToDetail() {
+        const detailPage = document.createElement('div');
+        detailPage.className = 'fade-in';
+        detailPage.innerHTML = "<h2>제품 상세 정보</h2><p>제품에 대한 자세한 설명...</p>";
+        document.body.appendChild(detailPage);
+        }
+
+        // IntersectionObserver를 사용하여 product-card들이 스크롤 시 하나씩 나타나도록 하고, 다시 focus될 때 나타나도록 함
+        const cards = document.querySelectorAll('.product-card');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible'); // focus가 벗어났을 때 클래스 제거
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+
+</body>
+</html>
