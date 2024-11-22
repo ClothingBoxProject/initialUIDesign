@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동작구 의류수거함 - 비밀번호 전송 완료</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1em;
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+        }
+
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 애니메이션이 적용된 컨테이너 스타일 */
+        .confirmation-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 2em;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+            text-align: center;
+            animation: fadeIn 3s ease-out; /* 애니메이션 설정 */
+        }
+
+        .confirmation-container h1 {
+            font-size: 2em;
+            color: #2e8b57;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .confirmation-container p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 1.5em;
+            line-height: 1.6;
+        }
+
+        .confirmation-container button {
+            width: 100%;
+            padding: 0.75em;
+            border: none;
+            border-radius: 8px;
+            background-color: #2e8b57;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .confirmation-container button:hover {
+            background-color: #267a4e;
+        }
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 1.5em 0;
+            font-size: 0.9em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 비밀번호 전송 확인 메시지 -->
+    <div class="confirmation-container">
+        <h1>비밀번호 전송 완료</h1>
+        <p>입력하신 이메일 주소로 <br> 비밀번호 재설정 링크가 전송되었습니다.<br>
+           이메일을 확인하시고 안내에 따라 <br> 비밀번호를 재설정해주세요.</p>
+        <button onclick="goHome()">홈으로 돌아가기</button>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+    <script>
+        function goHome() {
+            // 실제로 홈으로 이동하려면 이 부분을 수정하세요.
+            alert("홈으로 이동합니다.");
+        }
+    </script>
+
+</body>
+</html>

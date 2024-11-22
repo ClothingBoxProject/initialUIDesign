@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기부 가능한 의류 정보</title>
+    <style>
+        /* 공통 스타일 */
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; }
+
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+            z-index: 1000;
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 검색창 스타일 (이전 donation 페이지 스타일) */
+        .search-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 70px;
+            margin-bottom: 2em;
+        }
+        .search-input {
+            margin-top: 5em;
+            width: 80%;
+            max-width: 600px;
+            padding: 0.8em;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: #2e8b57;
+        }
+
+        /* 메인 스타일 */
+        .main {
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .main .content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .image-container {
+            flex: 1;
+            max-width: 45%;
+            min-width: 200px;
+            margin-right: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .text-container {
+            flex: 1;
+            max-width: 45%;
+            min-width: 200px;
+            margin-left: 20px;
+        }
+        .text-container h2 {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2e8b57;
+            margin-bottom: 1em;
+        }
+        .text-container p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 0.8em;
+        }
+        .text-container p span {
+            font-weight: bold;
+            color: #2e8b57;
+        }
+        .suggestion {
+            margin-top: 1.5em;
+            font-size: 1.1em;
+            color: #aaa;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        /* 드롭다운 메뉴 스타일 */
+         .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            margin-top: 3em;
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 2em 0;
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-container, .text-container {
+                max-width: 80%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 검색창 -->
+    <div class="search-container">
+        <form action="cloth_info.html" method="get">
+            <input type="text" name="search" class="search-input" placeholder="기부 가능한 의류를 검색하세요" value="">
+        </form>
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+        <div class="content">
+            <!-- 의류 이미지 -->
+            <div class="image-container">
+                <img src="cloth.jpg" alt="기부 가능한 의류 이미지">
+            </div>
+
+            <!-- 의류 정보 -->
+            <div class="text-container">
+                <h2>기부 가능한 의류 이름</h2>
+                <p><span>분류:</span> 재사용 가능</p>
+                <p><span>재활용 가능 여부:</span> 예</p>
+                <p><span>버리는 방법:</span> 세탁 후 기부</p>
+                <p class="suggestion" onclick="window.location.href='edit_cloth_info.html'">수정 제안</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+</body>
+</html>

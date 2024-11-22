@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동작구 의류 수거함 위치</title>
+    <style>
+        /* 공통 스타일 */
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; }
+
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4); /* 옅은 초록 줄 */
+            z-index: 1000;
+            height: 70px; /* 헤더 높이 설정 */
+            box-sizing: border-box;
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 15px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 메인 스타일 */
+        .main {
+            margin-top: 70px; /* 헤더 높이만큼 여백 추가 */
+            text-align: center;
+            padding: 2em 1em;
+        }
+        .main h1 {
+            padding-top: 0.5em;
+            font-size: 2.5em;
+            color: rgba(46, 139, 87, 0.8);
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+        .main p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 1.5em;
+            line-height: 1.6;
+            padding: 0 1em;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 지도 영역 */
+        .map-container {
+            width: 100%;
+            height: 70vh; /* 화면의 70% */
+            border: 1px solid rgba(128, 128, 128, 0.3); /* 연한 회색 테두리 */
+            border-radius: 10px;
+            margin: 2em 0;
+        }
+
+        /* 설명 텍스트 스타일 */
+        .description {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: auto;
+            padding: 1em;
+            background-color: rgba(46, 139, 87, 0.05);
+            border-radius: 10px;
+        }
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 2em 0;
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .main h1 {
+                font-size: 2em;
+            }
+            .main p, .description {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+        <h1>동작구 의류 수거함 위치</h1>
+        <p>동작구 곳곳에 설치된 의류 수거함 위치를 안내합니다. 아래 지도에서 가까운 수거함 위치를 확인하세요.</p>
+        <p>의류 수거함은 지역 사회의 자원 순환과 환경 보호에 기여하는 중요한 역할을 하고 있습니다.</p>
+
+        <!-- 지도 API 표시 영역 -->
+        <div class="map-container" id="map"></div>
+
+        <!-- 추가 설명 텍스트 -->
+        <div class="description">
+            가까운 의류 수거함을 확인하고, 기부를 통해 자원 순환과 환경 보호에 동참하세요. 기부하신 의류는 필요한 이웃들에게 전달되어 가치 있는 재사용의 기회를 얻게 됩니다.
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+    <!-- 지도 API 스크립트 (Kakao 지도 API) -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_API_KEY"></script>
+    <script>
+        // Kakao 지도 API를 사용하여 지도 초기화
+        var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+        var mapOption = {
+            center: new kakao.maps.LatLng(37.50972, 126.96355), // 동작구 중심 좌표
+            level: 5 // 확대 레벨
+        };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+    </script>
+</body>
+</html>
