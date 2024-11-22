@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동작구 의류수거함 - 로그인</title>
+    <style>
+        /* 전체 레이아웃 및 기본 설정 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1em;
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4); /* 옅은 초록 줄 */
+        }
+
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 로그인 컨테이너 */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 2em;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 160px;
+            margin-bottom: 200px;
+        }
+
+        /* 제목 스타일 */
+        .login-container h1 {
+            font-size: 2em;
+            color: #2e8b57;
+            margin-bottom: 1em;
+            font-weight: bold;
+        }
+
+        /* 입력 필드 스타일 */
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 90%;
+            padding: 0.75em;
+            margin: 0.7em 0;
+            border : none;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        .login-container input[type="text"]:focus,
+        .login-container input[type="password"]:focus {
+            border-color: #2e8b57;
+            outline: none;
+        }
+
+        /* 버튼 스타일 */
+        .login-container button {
+            width: 100%;
+            padding: 0.75em;
+            margin-top: 1em;
+            border: none;
+            border-radius: 8px;
+            background-color: #2e8b57;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #267a4e;
+        }
+
+        /* 하단 링크 스타일 */
+        .login-container .links {
+            margin-top: 1.5em;
+            font-size: 0.9em;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* 하단 링크 스타일 */
+        .login-container .links span,
+        .login-link span:last-child {
+            color: #2e8b57;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s, padding 0.3s;
+            padding: 0.3em 0.5em; /* 강조 효과 시 적용될 여백 */
+            border-radius: 8px; /* 강조 시 둥근 모서리 */
+        }
+
+        .login-container .links span:hover,
+        .login-link span:last-child:hover {
+            color: #267a4e;
+            background-color: rgba(128, 128, 128, 0.1); /* 연한 회색 배경 */
+        }
+
+        /* 하단 회원가입 링크 스타일 */
+        .login-link {
+            margin-top: 1em;
+            font-size: 0.9em;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .login-link span {
+            color: #888;
+        }
+        
+        .login-link span:last-child {
+            color: #2e8b57;
+            cursor: pointer;
+        }
+        .login-link span:last-child:hover {
+            color: #267a4e;
+        }
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 1.5em 0;
+            font-size: 0.9em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="donation_intro.html">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <!--총 donation category 페이지로 이어지되 데이터 바꿔서 넣기-->
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <div class="login-container">
+        <h1>로그인</h1>
+        <form>
+            <input type="text" id="username" placeholder="아이디" required>
+            <input type="password" id="password" placeholder="비밀번호" required>
+            <button type="button" onclick="login()">로그인</button>
+            <div class="links">
+                <span onclick="findId()">아이디 찾기</span>
+                <span onclick="resetPassword()">비밀번호 재설정</span>
+            </div>
+            <div class="login-link">
+                <span>회원이 아니신가요?</span>
+                <span onclick="goToSignup()">회원가입</span>
+            </div>
+        </form>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+    <script>
+        // 로그인 버튼 클릭 시 동작
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username && password) {
+                alert("로그인 성공!");
+            } else {
+                alert("아이디와 비밀번호를 입력하세요.");
+            }
+        }
+
+        // 아이디 찾기 기능
+        function findId() {
+            window.location.href = "search_id_with_email.html";
+        }
+
+        // 비밀번호 재설정 기능
+        function resetPassword() {
+            window.location.href = "reset_pw.html"
+        }
+
+        // 회원가입 페이지로 이동
+        function goToSignup() {
+            window.location.href="join_member.html"
+        }
+    </script>
+
+</body>
+</html>

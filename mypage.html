@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동작구 의류수거함 - 아이디 찾기</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1em;
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            padding: 2em;
+            margin: 3em;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+        }
+        .main-content h1 {
+            text-align: center;
+            color: #2e8b57;
+        }
+        .info-section {
+            margin-bottom: 2em;
+        }
+        .info-section h2 {
+            font-size: 1.2em;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5em;
+        }
+        .info-section li{
+            line-height: 1.5; 
+        }
+        .info-section p {
+            margin: 0.5em 0;
+            font-size: 1em;
+        }
+        .profile {
+            display: flex;
+        }
+        .photo img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .photo {
+            display: flex;
+            flex-direction: column;
+        }
+        .photo input{
+            margin-top: 1em;
+            font-size: 0.7em;
+        }
+
+        .information {
+            display: flex;
+            flex-direction: column;
+            gap: 1em; /* 각 label 사이 간격 추가 */
+        }
+        .information label {
+            display: flex;
+            align-items: center; 
+            gap: 1em;
+            font-weight: bold;
+        }
+        .information input {
+            flex: 1; /* 입력 필드가 남은 공간을 차지하도록 설정 */
+            padding: 0.5em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .information input:disabled {
+            background-color: #f0f0f0;
+            color: #888;
+        }
+        .information button {
+            margin-top: 1em;
+            padding: 0.5em 1em;
+            background-color: #2e8b57;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .information button:hover {
+            background-color: #256d46;
+        }
+        .edit-button {
+            margin-left: auto;
+            margin-top: auto;
+            background-color: #2e8b57;
+            color: white;
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .edit-button:hover {
+            background-color: #256d46;
+        }
+
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 1.5em 0;
+            font-size: 0.9em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 마이페이지 메인 컨텐츠 -->
+    <div class="main-content" id="mypage">
+        <h1>마이페이지</h1>
+
+        <!-- 개인 정보 섹션 -->
+        <div class="info-section" id="two-section">
+            <h2>개인 정보</h2>
+            <div class="profile">
+                <div class="photo">
+                    <img src="cloth.jpg" alt="프로필 사진">
+                    <input type="file" id="profileImageInput" name="profileImage" accept="image/*">
+                </div>
+                <div class="information">
+                    <label>
+                        이름 : <input id="name-display" type="text" placeholder="수정되기 이전 값" disabled>
+                    </label>
+                    <label>
+                        이메일 : <input id="email-display" type="email" placeholder="수정되기 이전 값" disabled>
+                    </label>
+                    <label>
+                        비밀번호 수정 : <a href="reset_pw.html">수정 페이지로 이동</a>
+                    </label>
+                </div>
+                <button class="edit-button" id="edit-button">정보 수정</button>
+            </div>
+        </div>
+
+        <!-- 기부 내역 섹션 -->
+        <div class="info-section">
+            <h2>기부 내역</h2>
+            <ul type="none">
+                <li><strong>2024-01-15:</strong> 옷 10벌</li>
+                <li><strong>2024-01-15:</strong>  신발 3켤레</li>
+                <li><strong>2024-01-15:</strong>  모자 2개</li>
+            </ul>
+        </div>
+
+        <!-- 활동 통계 섹션 -->
+        <div class="info-section">
+            <h2>활동 통계</h2>
+            <p><strong>총 기부 횟수:</strong> 5회</p>
+            <p><strong>총 기부 물품:</strong> 30개</p>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+    <script>
+        function findId() {
+            const email = document.getElementById("email").value;
+            if (email) {
+                alert("아이디 찾기 요청이 접수되었습니다. 이메일을 확인하세요.");
+            } else {
+                alert("이메일을 입력하세요.");
+            }
+        }
+        const editButton = document.getElementById("edit-button");
+        const nameInput = document.getElementById("name-display");
+        const emailInput = document.getElementById("email-display");
+
+        let isEditing = false;
+
+        editButton.addEventListener("click", () => {
+            if (!isEditing) {
+                // 활성화 상태로 변경
+                nameInput.disabled = false;
+                emailInput.disabled = false;
+                editButton.innerText = "제출";
+                isEditing = true;
+            } else {
+                // 정보 제출
+                if (confirm("정보를 수정하시겠습니까?")) {
+                    nameInput.disabled = true;
+                    emailInput.disabled = true;
+                    editButton.textContent = "정보 수정";
+                    isEditing = false;
+                    alert("정보가 성공적으로 수정되었습니다.");
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>

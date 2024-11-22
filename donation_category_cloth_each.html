@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스웨터 기부 가이드</title>
+    <style>
+        /* 공통 스타일 */
+        body { 
+            margin: 0;
+            font-family: Arial, sans-serif; 
+            background-color: #f8f9fa; 
+            color: #333; 
+        }
+        
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+            z-index: 1000;
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 콘텐츠 스타일 */
+        .content {
+            padding-top: 100px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 1em 1em;
+            text-align: center;
+        }
+        .content h1 {
+            font-size: 2.5em;
+            color: rgba(46, 139, 87, 0.8);
+            margin-top : 2em;
+        }
+        .content p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 1em auto;
+        }
+        .suggestion {
+            margin-top: 1.5em;
+            font-size: 1.1em;
+            color: #aaa;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* 검색창 스타일 (이전 donation 페이지 스타일) */
+        .search-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 70px;
+        }
+        .search-input {
+            margin-top: 5em;
+            width: 80%;
+            max-width: 600px;
+            padding: 0.8em;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            border-color: #2e8b57;
+        }
+
+        /* 이미지 스타일 */
+        .banner-image {
+            width: 300px;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5em;
+        }
+
+        /* 섹션 스타일 */
+        .section {
+            background-color: #fff;
+            padding: 2em;
+            margin: 1em auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .section h2 {
+            font-size: 1.8em;
+            color: #2e8b57;
+            margin-bottom: 0.5em;
+        }
+        .section ul {
+            padding-left: 20px;
+        }
+        .section ul li {
+            margin: 0.5em 0;
+            line-height: 1.5;
+            font-size: 1em;
+        }
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 기부 이미지 스타일 */
+        .section-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 1em;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* 기부의 가치 섹션 스타일 */
+        .donation-value-section {
+            background-color: #f1f8f6;
+            padding: 3em 2em;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 2em auto;
+            color: #333;
+        }
+        .donation-value-section h2 {
+            font-size: 2.5em;
+            color: #2e8b57;
+            margin-bottom: 1em;
+            font-weight: bold;
+        }   
+        .donation-value-section p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 0.5em;
+        }
+        .learn-more-button {
+            display: inline-block;
+            padding: 0.8em 1.5em;
+            background-color: #2e8b57;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        .learn-more-button:hover {
+            background-color: #267a4e;
+            box-shadow: 0px 4px 10px rgba(46, 139, 87, 0.3);
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 2em 0;
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="donation_intro.html">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <!--총 donation category 페이지로 이어지되 데이터 바꿔서 넣기-->
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+        <!-- 검색창 -->
+        <div class="search-container">
+            <form action="cloth_info.html" method="get">
+                <input type="text" name="search" class="search-input" placeholder="기부 가능한 의류를 검색하세요" value="">
+            </form>
+        </div>
+
+    <!-- 콘텐츠 -->
+    <div class="content">
+        <h1>스웨터</h1>
+        <p>스웨터를 올바르게 버리는 방법과 상태를 판별하는 팁을 확인해보세요. </p>
+        <P>기부로 이어진다면 환경을 보호하고, 도움이 필요한 사람들에게 따뜻함을 전달할 수 있습니다.</p>
+        
+        <!-- 배너 이미지 -->
+        <img src="cloth.jpg" alt="스웨터 기부 이미지" class="banner-image">
+
+        <!-- 의류를 버리는 방법 섹션 -->
+        <div class="section">
+            <h2>의류를 버리는 방법</h2>
+            <ul>
+                <li>기부 전에 세탁을 통해 스웨터를 깨끗하게 준비하세요.</li>
+                <li>의류 수거함에 넣을 때는 다른 물품과 섞이지 않도록 봉투에 담아 기부하세요.</li>
+                <li>의류 수거함 위치는 웹사이트를 통해 확인할 수 있습니다.</li>
+                <li>겨울철 의류는 특히 도움이 필요하므로, 따뜻한 스웨터와 같은 의류는 기부 우선 항목입니다.</li>
+            </ul>
+            <p class="suggestion" onclick="window.location.href='donation_change_info.html'">수정 제안</p>
+        </div>
+
+        <!-- 의류 상태 판별 방법 섹션 -->
+        <div class="section">
+            <h2>의류 상태 판별 방법</h2>
+            <ul>
+                <li>손상된 부분이 없는지 확인하세요 (예: 구멍, 올 풀림).</li>
+                <li>심한 변색이나 얼룩이 없는지 검사하세요.</li>
+                <li>보풀이 많을 경우 제거하여 깔끔한 상태로 만드세요.</li>
+                <li>의류의 향을 맡아 불쾌한 냄새가 나지 않는지 확인하세요.</li>
+                <li>깨끗하고 재사용 가능한 상태라면 기부가 가능합니다.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 배너 -->
+    <div class="donation-value-section">
+        <h2>기부의 가치</h2>
+        <p>의류 기부를 통해 환경 보호와 함께 도움이 필요한 사람들에게<br>나눔의 가치를 전달할 수 있습니다.</p>
+        <a href="#donate" class="learn-more-button">기부 방법 알아보기</a>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+</body>
+</html>
