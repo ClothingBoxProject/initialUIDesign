@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기부 가능한 의류</title>
+    <style>
+        /* 공통 스타일 */
+        body { margin: 0; font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; }
+
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+            z-index: 1000;
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 메인 스타일 */
+        .main {
+            margin-top: 70px;
+            text-align: center;
+            padding-top: 2em;
+        }
+        .main h1 {
+            font-size: 2.5em;
+            color: rgba(46, 139, 87, 0.8);
+            font-weight: bold;
+        }
+
+        /* 슬라이드 스타일 */
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 1000px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2em;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 50%;
+            border-radius: 10px;
+            margin-right: 1em;
+        }
+        .slide-text {
+            text-align: left;
+        }
+        .slide-text h2 {
+            font-size: 1.8em;
+            color: #2e8b57;
+            margin-bottom: 0.5em;
+        }
+        .slide-text p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(46, 139, 87, 0.8);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .slider-btn:hover {
+            opacity: 1;
+        }
+        .slider-btn.left { left: 10px; }
+        .slider-btn.right { right: 10px; }
+
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+                position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 인디케이터 스타일 */
+        .indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 1em;
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .indicator.active {
+            background-color: #ff8c00;
+        }
+
+        /* 검색창 스타일 */
+        .search-container {
+            margin-top: 2em;
+            padding: 3em;
+            margin-bottom: 2em;
+        }
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 0.8em;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 2em 0;
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+        <h1>헷갈리시나요?</h1>
+
+        <!-- 슬라이드 -->
+        <div class="slider-container">
+            <button class="slider-btn left" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="slides">
+                <div class="slide">
+                    <img src="example1.jpg" alt="의류 1">
+                    <div class="slide-text">
+                        <h2>의류 1</h2>
+                        <p>분류: 재사용 가능<br>버리는 방법: 세탁 후 기부</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="example2.jpg" alt="의류 2">
+                    <div class="slide-text">
+                        <h2>의류 2</h2>
+                        <p>분류: 재사용 가능<br>버리는 방법: 세탁 후 기부</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="example3.jpg" alt="의류 3">
+                    <div class="slide-text">
+                        <h2>의류 3</h2>
+                        <p>분류: 재사용 가능<br>버리는 방법: 세탁 후 기부</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="example4.jpg" alt="의류 4">
+                    <div class="slide-text">
+                        <h2>의류 4</h2>
+                        <p>분류: 재사용 가능<br>버리는 방법: 세탁 후 기부</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="example5.jpg" alt="의류 5">
+                    <div class="slide-text">
+                        <h2>의류 5</h2>
+                        <p>분류: 재사용 가능<br>버리는 방법: 세탁 후 기부</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="example6.jpg" alt="의류 6">
+                    <div class="slide-text">
+                        <h2>의류 6</h2>
+                        <p>분류: 재사용 가능<br>버리는 방법: 세탁 후 기부</p>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-btn left" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="slider-btn right" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+        <div class="indicators"></div>
+
+    <script>
+        // JavaScript 슬라이드 처리
+        const slides = document.querySelector(".slides");
+        const slideElements = Array.from(document.querySelectorAll(".slide"));
+        const totalSlides = slideElements.length;
+        const indicatorsContainer = document.querySelector(".indicators");
+
+        let currentIndex = 0;
+
+        // 슬라이드 복사 (무한 슬라이드 효과를 위해 앞뒤 추가)
+        const firstSlide = slideElements[0].cloneNode(true);
+        const lastSlide = slideElements[totalSlides - 1].cloneNode(true);
+
+        slides.appendChild(firstSlide); // 첫 슬라이드를 마지막에 추가
+        slides.insertBefore(lastSlide, slideElements[0]); // 마지막 슬라이드를 처음에 추가
+
+        let currentTranslate = -100; // 초기 위치
+        slides.style.transform = `translateX(${currentTranslate}%)`;
+
+        // 인디케이터 생성
+        slideElements.forEach((_, idx) => {
+            const indicator = document.createElement("div");
+            indicator.classList.add("indicator");
+            if (idx === currentIndex) indicator.classList.add("active");
+            indicator.addEventListener("click", () => goToSlide(idx));
+            indicatorsContainer.appendChild(indicator);
+        });
+
+        // 슬라이드 이동 함수
+        function moveSlide(direction) {
+            // 방향에 따라 슬라이드 이동
+            currentIndex += direction;
+            currentTranslate = -(currentIndex + 1) * 100; // 복사 슬라이드 포함한 위치 계산
+            slides.style.transition = "transform 0.5s ease-in-out";
+            slides.style.transform = `translateX(${currentTranslate}%)`;
+
+            // 무한 슬라이드 처리
+            setTimeout(() => {
+                if (currentIndex < 0) {
+                    currentIndex = totalSlides - 1; // 마지막 슬라이드로 이동
+                    slides.style.transition = "none"; // 애니메이션 제거
+                    currentTranslate = -(totalSlides) * 100; // 마지막 복사 슬라이드 위치
+                    slides.style.transform = `translateX(${currentTranslate}%)`;
+                } else if (currentIndex >= totalSlides) {
+                    currentIndex = 0; // 첫 번째 슬라이드로 이동
+                    slides.style.transition = "none";
+                    currentTranslate = -100; // 첫 번째 슬라이드 위치
+                    slides.style.transform = `translateX(${currentTranslate}%)`;
+                }
+                updateIndicators();
+            }, 500); // 애니메이션 완료 후 처리
+        }
+        // 특정 슬라이드로 이동
+        function goToSlide(index) {
+            currentIndex = index;
+            currentTranslate = -(index + 1) * 100;
+            slides.style.transition = "transform 0.5s ease-in-out";
+            slides.style.transform = `translateX(${currentTranslate}%)`;
+            updateIndicators();
+        }
+
+        // 인디케이터 업데이트
+        function updateIndicators() {
+            const indicators = document.querySelectorAll(".indicator");
+            indicators.forEach((indicator, idx) => {
+                indicator.classList.toggle("active", idx === currentIndex);
+            });
+        }
+    </script>
+
+    <!-- 검색창 -->
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+</body>
+</html>

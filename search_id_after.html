@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동작구 의류수거함 - 아이디 찾기 결과</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1em;
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+        }
+
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
+            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        .result-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 2em;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+            text-align: center;
+            animation: fadeIn 1s ease-out; /* 애니메이션 효과 */
+        }
+
+        .result-container h1 {
+            font-size: 2em;
+            color: #2e8b57;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .result-container p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 1.5em;
+            line-height: 1.6;
+        }
+
+        .result-container button {
+            width: 100%;
+            padding: 0.75em;
+            border: none;
+            border-radius: 8px;
+            background-color: #2e8b57;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .result-container button:hover {
+            background-color: #267a4e;
+        }
+
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 1.5em 0;
+            font-size: 0.9em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 애니메이션 효과 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #user-id{
+            padding: 10px;
+            background-color : rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="#login">로그인</a>
+        <a href="#clothes-bin">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="#donation">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 아이디 찾기 결과 메시지 -->
+    <div class="result-container">
+        <h1>아이디 찾기 결과</h1>
+        <p>등록된 이메일 주소로 연결된 아이디는 다음과 같습니다</p>
+        <p id="user-id"><strong>user@example.com</strong></p> <!-- 사용자 아이디 표시 -->
+        <button onclick="goLogin()">로그인 페이지로 이동</button>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+
+    <script>
+        function goLogin() {
+            // 실제로 로그인 페이지로 이동하려면 이 부분을 수정하세요.
+            alert("로그인 페이지로 이동합니다.");
+        }
+    </script>
+
+</body>
+</html>
