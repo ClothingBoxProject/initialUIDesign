@@ -40,12 +40,14 @@
             transform: scale(1.05);
         }
         
-        /* 검색창 스타일 (이전 donation 페이지 스타일) */
+        /* 검색창 스타일 */
         .search-container {
             width: 100%;
             text-align: center;
             margin-bottom: 2.5em;
+            position: relative; /* 버튼을 검색창에 맞춰 배치하기 위해 상대적인 위치로 설정 */
         }
+
         .search-input {
             width: 80%;
             max-width: 600px;
@@ -55,9 +57,57 @@
             font-size: 1em;
             outline: none;
             box-sizing: border-box;
+            padding-right: 60px; /* 버튼과 겹치지 않도록 오른쪽 여백 추가 */
         }
+
         .search-input:focus {
             border-color: #2e8b57;
+        }
+
+        /* 검색 버튼 스타일 */
+        .search-btn {
+            position: absolute;
+            right: 10px; /* 검색창 오른쪽에 고정 */
+            top: 50%;
+            transform: translateY(-50%); /* 버튼이 세로로 중앙에 위치하도록 */
+            padding: 0.6em 1.2em;
+            border: none;
+            background-color: #e0e0e0; /* 옅은 회색 */
+            color: #333; /* 글자색 */
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            max-width: 100px; /* 버튼의 최대 크기 설정 */
+            width: auto; /* 크기 자동 설정 */
+            box-sizing: content-box; /* 버튼 크기 제한을 텍스트만으로 조정 */
+        }
+
+        .search-btn:hover {
+            background-color: #bdbdbd; /* 버튼에 마우스를 올리면 색상 변경 */
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .search-input {
+                width: 70%;
+            }
+
+            .search-btn {
+                font-size: 0.9em; /* 버튼 텍스트 크기 조정 */
+                padding: 0.5em 1em; /* 버튼 크기 조정 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-input {
+                width: 90%;
+            }
+
+            .search-btn {
+                font-size: 0.8em; /* 더 작은 화면에서는 버튼 크기 줄이기 */
+                padding: 0.4em 0.8em; /* 버튼 크기 줄이기 */
+            }
         }
 
         /* 콘텐츠 스타일 */
@@ -250,10 +300,11 @@
         
         <!-- 검색창 -->
         <div class="search-container">
-        <form action="cloth_info.html" method="get">
-            <input type="text" name="search" class="search-input" placeholder="기부 가능한 의류를 검색하세요" value="">
-        </form>
-        </div>
+            <form action="cloth_info.html" method="get">
+                <input type="text" name="search" class="search-input" placeholder="기부 가능한 의류를 검색하세요" value="">
+                <button type="submit" class="search-btn">검색</button>
+            </form>
+        </div>        
 
         <!-- 제품 목록 -->
         <div class="product-grid">
