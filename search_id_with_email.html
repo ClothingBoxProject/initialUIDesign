@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동작구 의류수거함 - 로그인</title>
+    <title>동작구 의류수거함 - 아이디 찾기</title>
     <style>
-        /* 전체 레이아웃 및 기본 설정 */
         body, html {
             margin: 0;
             padding: 0;
@@ -19,7 +18,6 @@
             height: 100vh;
         }
 
-        /* 헤더 스타일 */
         .header {
             position: fixed;
             top: 0;
@@ -28,7 +26,7 @@
             justify-content: center;
             background-color: rgba(255, 255, 255, 0.95);
             padding: 1em;
-            border-bottom: 3px solid rgba(46, 139, 87, 0.4); /* 옅은 초록 줄 */
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
         }
 
         .header a {
@@ -46,8 +44,7 @@
             transform: scale(1.05);
         }
 
-        /* 로그인 컨테이너 */
-        .login-container {
+        .find-id-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -57,25 +54,22 @@
             max-width: 400px;
             border-radius: 12px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 160px;
-            margin-bottom: 200px;
+            margin-top: 60px;
+            text-align: center;
         }
 
-        /* 제목 스타일 */
-        .login-container h1 {
+        .find-id-container h1 {
             font-size: 2em;
             color: #2e8b57;
             margin-bottom: 1em;
             font-weight: bold;
         }
 
-        /* 입력 필드 스타일 */
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
+        .find-id-container input[type="email"] {
             width: 90%;
             padding: 0.75em;
             margin: 0.7em 0;
-            border : none;
+            border:none;
             border-radius: 8px;
             font-size: 1em;
             color: #333;
@@ -83,14 +77,12 @@
             transition: border-color 0.3s;
         }
 
-        .login-container input[type="text"]:focus,
-        .login-container input[type="password"]:focus {
+        .find-id-container input[type="email"]:focus {
             border-color: #2e8b57;
             outline: none;
         }
 
-        /* 버튼 스타일 */
-        .login-container button {
+        .find-id-container button {
             width: 100%;
             padding: 0.75em;
             margin-top: 1em;
@@ -104,39 +96,11 @@
             transition: background-color 0.3s;
         }
 
-        .login-container button:hover {
+        .find-id-container button:hover {
             background-color: #267a4e;
         }
 
-        /* 하단 링크 스타일 */
-        .login-container .links {
-            margin-top: 1.5em;
-            font-size: 0.9em;
-            color: #888;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        /* 하단 링크 스타일 */
-        .login-container .links span,
-        .login-link span:last-child {
-            color: #2e8b57;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.3s, color 0.3s, padding 0.3s;
-            padding: 0.3em 0.5em; /* 강조 효과 시 적용될 여백 */
-            border-radius: 8px; /* 강조 시 둥근 모서리 */
-        }
-
-        .login-container .links span:hover,
-        .login-link span:last-child:hover {
-            color: #267a4e;
-            background-color: rgba(128, 128, 128, 0.1); /* 연한 회색 배경 */
-        }
-
-        /* 하단 회원가입 링크 스타일 */
-        .login-link {
+        .find-id-container .alternate-link {
             margin-top: 1em;
             font-size: 0.9em;
             color: #888;
@@ -145,17 +109,19 @@
             width: 100%;
         }
 
-        .login-link span {
+        .find-id-container .alternate-link span {
             color: #888;
         }
-        
-        .login-link span:last-child {
+
+        .find-id-container .alternate-link a {
             color: #2e8b57;
-            cursor: pointer;
+            text-decoration: none;
         }
-        .login-link span:last-child:hover {
+
+        .find-id-container .alternate-link a:hover {
             color: #267a4e;
         }
+
         /* 드롭다운 메뉴 스타일 */
         .dropdown {
             position: relative;
@@ -185,7 +151,6 @@
             display: block;
         }
 
-        /* 푸터 스타일 */
         .footer {
             background-color: #ddd;
             color: #333;
@@ -217,19 +182,14 @@
         <a href="#about">About</a>
     </div>
 
-    <div class="login-container">
-        <h1>로그인</h1>
+    <div class="find-id-container">
+        <h1>아이디 찾기</h1>
         <form>
-            <input type="text" id="username" placeholder="아이디" required>
-            <input type="password" id="password" placeholder="비밀번호" required>
-            <button type="button" onclick="login()">로그인</button>
-            <div class="links">
-                <span onclick="findId()">아이디 찾기</span>
-                <span onclick="resetPassword()">비밀번호 재설정</span>
-            </div>
-            <div class="login-link">
-                <span>회원이 아니신가요?</span>
-                <span onclick="goToSignup()">회원가입</span>
+            <input type="email" id="email" placeholder="이메일 주소" required>
+            <button type="button" onclick="findId()">다음</button>
+            <div class="alternate-link">
+                <span>비밀번호를 잊으셨나요?</span>
+                <a href="reset_pw.html">비밀번호 재설정</a>
             </div>
         </form>
     </div>
@@ -240,31 +200,13 @@
     </div>
 
     <script>
-        // 로그인 버튼 클릭 시 동작
-        function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            if (username && password) {
-                alert("로그인 성공!");
-            } else {
-                alert("아이디와 비밀번호를 입력하세요.");
-            }
-        }
-
-        // 아이디 찾기 기능
         function findId() {
-            window.location.href = "search_id_with_email.html";
-        }
-
-        // 비밀번호 재설정 기능
-        function resetPassword() {
-            window.location.href = "reset_pw.html"
-        }
-
-        // 회원가입 페이지로 이동
-        function goToSignup() {
-            window.location.href="join_member.html"
+            const email = document.getElementById("email").value;
+            if (email) {
+                window.location.href = "search_id_after.html";
+            } else {
+                alert("이메일을 입력하세요.");
+            }
         }
     </script>
 

@@ -158,6 +158,7 @@
             border-top: 1px solid #ccc;
             margin-top: 2em;
         }
+        
         /* 기부의 가치 섹션 스타일 */
         .donation-value-section {
             background-color: #f1f8f6;
@@ -197,6 +198,22 @@
             box-shadow: 0px 4px 10px rgba(46, 139, 87, 0.3);
         }
 
+        .suggestion_text {
+            margin-top: 1.5em;
+            font-size: 1em;
+            color: #aaa;text-align: center;
+        }
+
+        .suggestion {
+            margin-top: 1.5em;
+            font-size: 1em;
+            color: #777;
+            text-decoration: underline;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
         /* 상세 페이지 이동 애니메이션 */
         .fade-in {
             animation: fadeIn 1s ease-in-out;
@@ -208,14 +225,14 @@
     </style>
 </head>
 <body>
-
     <!-- 헤더 -->
     <div class="header">
-        <a href="#login">로그인</a>
-        <a href="#clothes-bin">의류 수거함 위치</a>
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
         <div class="dropdown">
-            <a href="#donation">의류 배출 방법</a>
+            <a href="donation_intro.html">기부 가능한 의류</a>
             <div class="dropdown-content">
+                <!--총 donation category 페이지로 이어지되 데이터 바꿔서 넣기-->
                 <a href="#clothes">옷</a>
                 <a href="#hats">모자</a>
                 <a href="#shoes">신발</a>
@@ -225,10 +242,10 @@
         </div>
         <a href="#about">About</a>
     </div>
-
+    
     <!-- 콘텐츠 -->
     <div class="content">
-        <h1>옷을 버리는 방법</h1>
+        <h1>기부 가능한 의류</h1>
         <p>의류를 올바르게 배출하여 환경을 보호해보세요.</p>
         
         <!-- 검색창 -->
@@ -281,6 +298,9 @@
             <a href="#donate" class="learn-more-button">기부 방법 알아보기</a>
         </div>
     </div>
+
+    <p class="suggestion_text">수정하고 싶은 부분이 있나요?</p>
+    <p class="suggestion" onclick="window.location.href='donation_change_info.html'">수정 제안</p>
 
     <!-- 푸터 -->
     <div class="footer">

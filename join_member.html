@@ -57,7 +57,8 @@
             max-width: 400px;
             border-radius: 12px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 100px;
+            margin-top: 160px;
+            margin-bottom: 200px;
         }
 
         /* 제목 스타일 */
@@ -171,14 +172,14 @@
     </style>
 </head>
 <body>
-
     <!-- 헤더 -->
     <div class="header">
-        <a href="#login">로그인</a>
-        <a href="#clothes-bin">의류수거함 위치</a>
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
         <div class="dropdown">
-            <a href="#donation">기부 가능한 의류</a>
+            <a href="donation_intro.html">기부 가능한 의류</a>
             <div class="dropdown-content">
+                <!--총 donation category 페이지로 이어지되 데이터 바꿔서 넣기-->
                 <a href="#clothes">옷</a>
                 <a href="#hats">모자</a>
                 <a href="#shoes">신발</a>
@@ -231,8 +232,7 @@
 
         // 로그인 페이지로 이동
         function goToLogin() {
-            alert("로그인 페이지로 이동합니다.");
-            // 실제로 로그인 페이지로 이동하려면 window.location.href를 사용
+            window.location.href="login.html"
         }
     </script>
 

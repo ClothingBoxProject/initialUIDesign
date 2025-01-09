@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+    <style>
+        /* 공통 스타일 */
+        body { 
+            margin: 0;
+            font-family: Arial, sans-serif; 
+            background-color: #f8f9fa; 
+            color: #333; 
+            min-height: 100vh; /* 화면 전체 높이 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 헤더 스타일 */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
+            z-index: 1000;
+        }
+        .header a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 0.5em 0;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .header a:hover {
+            background-color: rgba(46, 139, 87, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* 드롭다운 메뉴 스타일 */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 2.5em;
+            background-color: white;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.5em 0;
+            z-index: 1000;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+        }
+        .dropdown-content a:hover {
+            color: rgba(46, 139, 87, 1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* 메인 콘텐츠 스타일 */
+        .content {
+            margin-top: 90px; /* 고정된 헤더 높이만큼 여백 */
+            text-align: center;
+            padding: 1em;
+            flex-grow: 1; /* 콘텐츠 영역이 푸터를 밀지 않도록 설정 */
+        }
+        .content h1 {
+            font-size: 2.5em;
+            color: rgba(46, 139, 87, 0.8);
+            margin-bottom: 1em;
+        }
+
+        /* 검색창 스타일 */
+        .search-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        .search-input {
+            width: 80%;
+            max-width: 600px;
+            padding: 0.8em;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #2e8b57;
+        }
+
+        /* 검색 결과 없음 스타일 */
+        .no-results {
+            margin-top: 2em;
+            text-align: center;
+        }
+        .no-results-title {
+            font-size: 2.5em;
+            color: rgba(46, 139, 87, 0.8);
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+        .no-results-message {
+            font-size: 1em;
+            color: #aaa;
+        }
+
+        .suggestion_text {
+            margin-top: 1.5em;
+            font-size: 1em;
+            color: #aaa;text-align: center;
+        }
+
+        .suggestion {
+            margin-top: 1em;
+            font-size: 1em;
+            color: #777;
+            text-decoration: underline;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* 푸터 스타일 */
+        .footer {
+            background-color: #ddd;
+            color: #333;
+            text-align: center;
+            padding: 2em 0;
+            font-size: 0.9em;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div class="header">
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
+        <div class="dropdown">
+            <a href="donation_intro.html">기부 가능한 의류</a>
+            <div class="dropdown-content">
+                <a href="#clothes">옷</a>
+                <a href="#hats">모자</a>
+                <a href="#shoes">신발</a>
+                <a href="#blankets">이불</a>
+                <a href="#others">기타</a>
+            </div>
+        </div>
+        <a href="#about">About</a>
+    </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div class="content">
+        <div class="search-container">
+            <form action="cloth_info.html" method="get">
+                <input type="text" name="search" class="search-input" placeholder="기부 가능한 의류를 검색하세요" value="">
+            </form>
+        </div>
+
+        <div class="no-results">
+            <p class="no-results-title">검색 결과를 찾지 못했어요 :(</p>
+            <p class="no-results-message">검색어를 다시 입력해주세요.</p>
+        </div>
+    </div>
+
+    <p class="suggestion_text">수정하고 싶은 부분이 있나요?</p>
+    <p class="suggestion" onclick="window.location.href='donation_change_info.html'">수정 제안</p>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2024 동작구 의류수거함. 제작자: 홍길동</p>
+    </div>
+</body>
+</html>

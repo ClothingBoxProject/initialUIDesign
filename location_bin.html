@@ -8,6 +8,7 @@
         /* 공통 스타일 */
         body { margin: 0; font-family: Arial, sans-serif; background-color: #f8f9fa; color: #333; }
 
+
         /* 헤더 스타일 */
         .header {
             position: fixed;
@@ -17,20 +18,18 @@
             justify-content: center;
             padding: 1em;
             background-color: rgba(255, 255, 255, 0.8);
-            border-bottom: 3px solid rgba(46, 139, 87, 0.4); /* 옅은 초록 줄 */
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
             z-index: 1000;
-            height: 70px; /* 헤더 높이 설정 */
-            box-sizing: border-box;
         }
         .header a {
             color: #333;
             text-decoration: none;
             margin: 0 15px;
-            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
-            border-radius: 15px;
+            padding: 0.5em 0;
+            border-radius: 8px;
             transition: background-color 0.3s, transform 0.3s;
-            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
-            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+            display: inline-block;
+            vertical-align: middle;
         }
         .header a:hover {
             background-color: rgba(46, 139, 87, 0.1);
@@ -119,6 +118,23 @@
             border-top: 1px solid #ccc;
         }
 
+        .suggestion_text {
+            margin-top: 1.5em;
+            font-size: 1em;
+            color: #aaa;text-align: center;
+        }
+
+        .suggestion {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-size: 1em;
+            color: #777;
+            text-decoration: underline;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
         /* 반응형 스타일 */
         @media (max-width: 768px) {
             .main h1 {
@@ -130,14 +146,16 @@
         }
     </style>
 </head>
+
 <body>
     <!-- 헤더 -->
     <div class="header">
-        <a href="#login">로그인</a>
-        <a href="#clothes-bin">의류수거함 위치</a>
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
         <div class="dropdown">
-            <a href="#donation">기부 가능한 의류</a>
+            <a href="donation_intro.html">기부 가능한 의류</a>
             <div class="dropdown-content">
+                <!--총 donation category 페이지로 이어지되 데이터 바꿔서 넣기-->
                 <a href="#clothes">옷</a>
                 <a href="#hats">모자</a>
                 <a href="#shoes">신발</a>
@@ -162,6 +180,9 @@
             가까운 의류 수거함을 확인하고, 기부를 통해 자원 순환과 환경 보호에 동참하세요. 기부하신 의류는 필요한 이웃들에게 전달되어 가치 있는 재사용의 기회를 얻게 됩니다.
         </div>
     </div>
+
+    <p class="suggestion_text">수정하고 싶은 부분이 있나요?</p>
+    <p class="suggestion" onclick="window.location.href='donation_change_info.html'">수정 제안</p>
 
     <!-- 푸터 -->
     <div class="footer">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동작구 의류수거함 - 로그인</title>
+    <title>동작구 의류수거함 - 비밀번호 재설정</title>
     <style>
         /* 전체 레이아웃 및 기본 설정 */
         body, html {
@@ -28,126 +28,23 @@
             justify-content: center;
             background-color: rgba(255, 255, 255, 0.95);
             padding: 1em;
-            border-bottom: 3px solid rgba(46, 139, 87, 0.4); /* 옅은 초록 줄 */
+            border-bottom: 3px solid rgba(46, 139, 87, 0.4);
         }
 
         .header a {
             color: #333;
             text-decoration: none;
             margin: 0 15px;
-            padding: 0.5em 0; /* 위아래 패딩을 동일하게 적용 */
+            padding: 0.5em 0;
             border-radius: 8px;
             transition: background-color 0.3s, transform 0.3s;
-            display: inline-block; /* 모든 항목의 높이가 같도록 설정 */
-            vertical-align: middle; /* 세로 정렬을 중앙으로 맞춤 */
+            display: inline-block;
+            vertical-align: middle;
         }
+
         .header a:hover {
             background-color: rgba(46, 139, 87, 0.1);
             transform: scale(1.05);
-        }
-
-        /* 로그인 컨테이너 */
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #fff;
-            padding: 2em;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 60px;
-        }
-
-        /* 제목 스타일 */
-        .login-container h1 {
-            font-size: 2em;
-            color: #2e8b57;
-            margin-bottom: 1em;
-            font-weight: bold;
-        }
-
-        /* 입력 필드 스타일 */
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 90%;
-            padding: 0.75em;
-            margin: 0.7em 0;
-            border : none;
-            border-radius: 8px;
-            font-size: 1em;
-            color: #333;
-            background-color: #f9f9f9;
-            transition: border-color 0.3s;
-        }
-
-        .login-container input[type="text"]:focus,
-        .login-container input[type="password"]:focus {
-            border-color: #2e8b57;
-            outline: none;
-        }
-
-        /* 버튼 스타일 */
-        .login-container button {
-            width: 100%;
-            padding: 0.75em;
-            margin-top: 1em;
-            border: none;
-            border-radius: 8px;
-            background-color: #2e8b57;
-            color: #fff;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .login-container button:hover {
-            background-color: #267a4e;
-        }
-
-        /* 하단 링크 스타일 */
-        .login-container .links {
-            margin-top: 1.5em;
-            font-size: 0.9em;
-            color: #888;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .login-container .links span {
-            color: #2e8b57;
-            cursor: pointer;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .login-container .links span:hover {
-            color: #555;
-        }
-
-        /* login_link 스타일 */
-        .login-link {
-            margin-top: 1em;
-            font-size: 0.9em;
-            color: #888;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .login-link span {
-            color: #888;
-        }
-        
-        .login-link span:last-child {
-            color: #2e8b57;
-            cursor: pointer;
-        }
-        .login-link span:last-child:hover {
-            color: #267a4e;
         }
 
         /* 드롭다운 메뉴 스타일 */
@@ -179,6 +76,91 @@
             display: block;
         }
 
+        /* 비밀번호 재설정 컨테이너 */
+        .reset-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 2em;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 160px;
+            margin-bottom: 200px;
+        }
+
+        /* 제목 스타일 */
+        .reset-container h1 {
+            font-size: 2em;
+            color: #2e8b57;
+            margin-bottom: 1em;
+            font-weight: bold;
+        }
+
+        /* 입력 필드 스타일 */
+        .reset-container input[type="text"],
+        .reset-container input[type="password"] {
+            width: 90%;
+            padding: 0.75em;
+            margin: 0.7em 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        .reset-container input[type="text"]:focus,
+        .reset-container input[type="password"]:focus {
+            border-color: #2e8b57;
+            outline: none;
+        }
+
+        /* 버튼 스타일 */
+        .reset-container button {
+            width: 100%;
+            padding: 0.75em;
+            margin-top: 1em;
+            border: none;
+            border-radius: 8px;
+            background-color: #2e8b57;
+            color: #fff;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .reset-container button:hover {
+            background-color: #267a4e;
+        }
+
+        /* 하단 링크 스타일 */
+        .reset-link {
+            margin-top: 1em;
+            font-size: 0.9em;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .reset-link span {
+            color: #888;
+        }
+
+        .reset-link span:last-child {
+            color: #2e8b57;
+            cursor: pointer;
+        }
+
+        .reset-link span:last-child:hover {
+            color: #267a4e;
+        }
+
         /* 푸터 스타일 */
         .footer {
             background-color: #ddd;
@@ -193,14 +175,14 @@
     </style>
 </head>
 <body>
-
     <!-- 헤더 -->
     <div class="header">
-        <a href="#login">홈</a>
-        <a href="#clothes-bin">의류수거함 위치</a>
+        <a href="login.html">로그인</a>
+        <a href="location_bin.html">의류수거함 위치</a>
         <div class="dropdown">
-            <a href="#donation">기부 가능한 의류</a>
+            <a href="donation_intro.html">기부 가능한 의류</a>
             <div class="dropdown-content">
+                <!--총 donation category 페이지로 이어지되 데이터 바꿔서 넣기-->
                 <a href="#clothes">옷</a>
                 <a href="#hats">모자</a>
                 <a href="#shoes">신발</a>
@@ -211,16 +193,17 @@
         <a href="#about">About</a>
     </div>
 
-    <div class="login-container">
+    <!-- 비밀번호 재설정 컨테이너 -->
+    <div class="reset-container">
         <h1>비밀번호 재설정</h1>
         <form>
-            <input type="text" id="username" placeholder="새로운 비밀번호" required>
-            <input type="password" id="password" placeholder="비밀번호 확인" required>
-            <button type="button" onclick="login()">재설정</button>
+            <input type="password" id="new_pw" placeholder="새 비밀번호" required>
+            <input type="password" id="check_pw" placeholder="비밀번호 확인" required>
+            <button type="button" onclick="resetPassword()">재설정</button>
         </form>
-        <div class="login-link">
-            <span>마이페이지로 이동?</span>
-            <span onclick="goToSignup()">마이페이지</span>
+        <div class="reset-link">
+            <span>비밀번호가 기억났나요?</span>
+            <span onclick="goToLogin()">로그인 페이지</span>
         </div>
     </div>
 
@@ -230,33 +213,26 @@
     </div>
 
     <script>
-        // 로그인 버튼 클릭 시 동작
-        function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+        // 비밀번호 재설정 버튼 클릭 시 동작
+        function resetPassword() {
+            const newPassword = document.getElementById("new_pw").value;
+            const confirmPassword = document.getElementById("check_pw").value;
 
-            if (username && password) {
-                alert("로그인 성공!");
+            if (newPassword && confirmPassword) {
+                if (newPassword === confirmPassword) {
+                    alert("비밀번호가 성공적으로 변경되었습니다!");
+                } else {
+                    alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+                }
             } else {
-                alert("아이디와 비밀번호를 입력하세요.");
+                alert("모든 필드를 입력하세요.");
             }
         }
 
-        // 아이디 찾기 기능
-        function findId() {
-            alert("아이디 찾기 기능은 현재 지원되지 않습니다.");
-        }
-
-        // 비밀번호 재설정 기능
-        function resetPassword() {
-            alert("비밀번호 재설정 기능은 현재 지원되지 않습니다.");
-        }
-
-        // 회원가입 페이지로 이동
-        function goToSignup() {
-            alert("회원가입 페이지로 이동합니다.");
+        // 로그인 페이지로 이동
+        function goToLogin() {
+            window.location.href = "login.html";
         }
     </script>
-
 </body>
 </html>
